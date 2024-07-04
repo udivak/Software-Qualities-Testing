@@ -58,7 +58,6 @@ namespace MathGame
                 this.num2 = Math.Min(num1, num2);
                 this.correctAnswer = this.num1 - this.num2;
             }
-                
             else
                 throw new ArgumentException("empty operator");
         }

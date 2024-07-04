@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 
 namespace MathGame
 {
@@ -107,13 +106,13 @@ namespace MathGame
             button3.Enabled = enabled;
             button4.Enabled = enabled;
         }
-    private bool gameOver()
+        private bool gameOver()
         {
             if (this.index == 10)
             {
                 int grade = this.score * 10;
                 MessageBox.Show($"Your score is {this.score}/{this.totalQuestions}" + Environment.NewLine +
-                                $"Your Grade is {grade}!","Game Over");
+                                $"Your Grade is {grade}!!!","Game Over");
                 return true;
             }
             return false;
