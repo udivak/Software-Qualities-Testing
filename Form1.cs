@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading.Tasks;
 
 namespace MathGame
 {
@@ -30,18 +31,57 @@ namespace MathGame
             lblQuestion.Text = $"#{this.index+1}.  "+this.questions[this.index].toString();
         }
 
-        private void checkAnswerEvent(object sender, EventArgs e)
+        //private void checkAnswerEvent(object sender, EventArgs e)
+        //{
+        //    int btnAnswer = int.Parse(((Button)sender).Text);
+        //    int btnTag = Convert.ToInt32(((Button)sender).Tag);         //for coloring;
+
+        //    if (checkAnswer(btnAnswer))
+        //    {
+        //        this.score++;
+        //    }
+
+        //    this.index++;
+
+        //    if (gameOver())
+        //    {
+        //        this.Close();
+        //        Application.Exit();
+        //    }
+        //    else
+        //    {
+        //        setButtons();
+        //        nextQuestion();
+        //    }
+
+        //}
+
+        private async void checkAnswerEvent(object sender, EventArgs e)
         {
-            int btnAnswer = int.Parse(((Button)sender).Text);
-            int btnTag = Convert.ToInt32(((Button)sender).Tag);         //for coloring;
+            Button clickedButton = (Button)sender;
+            int btnAnswer = int.Parse(clickedButton.Text);
 
             if (checkAnswer(btnAnswer))
             {
                 this.score++;
+                clickedButton.BackColor = Color.Green;
+            }
+            else
+            {
+                clickedButton.BackColor = Color.Red;
             }
 
-            this.index++;
+            // Disable all buttons to prevent multiple clicks
+            SetButtonsEnabled(false);
 
+            // Wait for 1.5 seconds
+            await Task.Delay(1000);
+
+            // Reset button colors and re-enable them
+            ResetButtonColors();
+            SetButtonsEnabled(true);
+
+            this.index++;
             if (gameOver())
             {
                 this.Close();
@@ -52,9 +92,23 @@ namespace MathGame
                 setButtons();
                 nextQuestion();
             }
-
         }
-        private bool gameOver()
+
+        private void ResetButtonColors()
+        {
+            button1.BackColor = SystemColors.Control;
+            button2.BackColor = SystemColors.Control;
+            button3.BackColor = SystemColors.Control;
+            button4.BackColor = SystemColors.Control;
+        }
+        private void SetButtonsEnabled(bool enabled)
+        {
+            button1.Enabled = enabled;
+            button2.Enabled = enabled;
+            button3.Enabled = enabled;
+            button4.Enabled = enabled;
+        }
+    private bool gameOver()
         {
             if (this.index == 10)
             {
@@ -66,7 +120,6 @@ namespace MathGame
             return false;
         }
         private bool checkAnswer(int btnANswer) { return btnANswer == this.questions[this.index].getCorrectAnswer(); }
-
         internal void setButtons()
         {
             Button[] buttons = { button1, button2, button3, button4 };

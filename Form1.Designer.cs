@@ -48,6 +48,7 @@ namespace MathGame
             // 
             // button2
             // 
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(424, 258);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(146, 96);
@@ -59,6 +60,7 @@ namespace MathGame
             // 
             // button1
             // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(116, 258);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(146, 96);
@@ -70,6 +72,7 @@ namespace MathGame
             // 
             // button3
             // 
+            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(116, 391);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(146, 96);
@@ -81,6 +84,7 @@ namespace MathGame
             // 
             // button4
             // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Location = new System.Drawing.Point(424, 391);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(146, 96);

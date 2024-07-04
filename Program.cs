@@ -18,20 +18,24 @@ namespace MathGame
             Application.SetCompatibleTextRenderingDefault(false);
             Random random = new Random();
             int totalQuestions = 10;
-            string op = "";
-            Question[] questions = new Question[10];
-            for (int i=0; i<totalQuestions; i++)
+            string[] ops = { "+", "-" };
+            List<Question> questions = new List<Question>();
+
+            while (questions.Count < totalQuestions)
             {
                 int num1 = random.Next(1, 11);
                 int num2 = random.Next(1, 11);
-                int choice = random.Next(1, 3);
-                if (choice == 1)
-                    op = "+";
-                if (choice == 2)
-                    op = "-";
-                questions[i] = new Question(num1, num2, op);
+                string op = ops[random.Next(ops.Length)];
+
+                Question newQuestion = new Question(num1, num2, op);
+
+                if (!questions.Any(q => q.IsSimilar(newQuestion)))
+                {
+                    questions.Add(newQuestion);
+                }
             }
-            Form1 gameForm =new Form1(questions, totalQuestions);
+
+            Form1 gameForm = new Form1(questions.ToArray(), totalQuestions);
             gameForm.nextQuestion();
             gameForm.setButtons();
             Application.Run(gameForm);
@@ -57,6 +61,12 @@ namespace MathGame
                 
             else
                 throw new ArgumentException("empty operator");
+        }
+        public bool IsSimilar(Question other)
+        {
+            return this.op == other.op &&
+                   ((this.num1 == other.num1 && this.num2 == other.num2) ||
+                    (this.num1 == other.num2 && this.num2 == other.num1 && this.op == "+"));
         }
         public int getNum1() { return this.num1; }
         public int getNum2() { return this.num2; }
