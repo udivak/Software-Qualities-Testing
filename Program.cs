@@ -20,7 +20,7 @@ namespace MathGame
             int totalQuestions = 10;
             string[] ops = { "+", "-" };
             List<Question> questions = new List<Question>();
-
+            
             while (questions.Count < totalQuestions)
             {
                 int num1 = random.Next(1, 11);

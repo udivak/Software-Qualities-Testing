@@ -14,7 +14,7 @@ namespace MathGame
     public partial class Form1 : Form
     {
         Question[] questions;
-        int totalQuestions, questionCounter, index, score;
+        int totalQuestions, index, score;
         Random random = new Random();
 
         public Form1(Question[] questions, int totalQuestions, int index = 0)
@@ -22,7 +22,6 @@ namespace MathGame
             InitializeComponent();
             this.questions = questions;
             this.totalQuestions = totalQuestions;
-            this.questionCounter = 0;
             this.index = index;
             this.score = 0;
         }
