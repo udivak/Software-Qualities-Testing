@@ -123,7 +123,6 @@ namespace MathGame
             Button[] buttons = { button1, button2, button3, button4 };
             int correctIndex = random.Next(0, 4);
             int correctAnswer = this.questions[index].getCorrectAnswer();
-
             HashSet<int> usedNumbers = new HashSet<int> { correctAnswer };
 
             for (int i = 0; i < 4; i++)
