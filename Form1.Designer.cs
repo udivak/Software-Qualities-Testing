@@ -114,7 +114,7 @@ namespace MathGame
             this.Controls.Add(this.button2);
             this.Controls.Add(this.lblQuestion);
             this.Name = "Game";
-            this.Text = "Form1";
+            this.Text = "Game";
             this.ResumeLayout(false);
 
         }

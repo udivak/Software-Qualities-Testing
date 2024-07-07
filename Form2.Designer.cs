@@ -75,7 +75,7 @@ namespace MathGame
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Name = "Instructions";
-            this.Text = "Form2";
+            this.Text = "Welcome";
             this.ResumeLayout(false);
             this.PerformLayout();
 
