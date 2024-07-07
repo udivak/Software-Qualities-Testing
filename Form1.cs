@@ -10,50 +10,27 @@ using System.Windows.Forms;
 
 namespace MathGame
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
         Question[] questions;
+        List<Question> wrong_answers = new List<Question>();
         int totalQuestions, index, score;
         Random random = new Random();
 
-        public Form1(Question[] questions, int totalQuestions, int index = 0)
+        public Game(Question[] questions, int totalQuestions, int index = 0)
         {
             InitializeComponent();
             this.questions = questions;
             this.totalQuestions = totalQuestions;
             this.index = index;
             this.score = 0;
+
+            progressBar1.Maximum = totalQuestions;
         }
         public void nextQuestion()
         {
             lblQuestion.Text = $"#{this.index+1}.  "+this.questions[this.index].toString();
         }
-
-        //private void checkAnswerEvent(object sender, EventArgs e)
-        //{
-        //    int btnAnswer = int.Parse(((Button)sender).Text);
-        //    int btnTag = Convert.ToInt32(((Button)sender).Tag);         //for coloring;
-
-        //    if (checkAnswer(btnAnswer))
-        //    {
-        //        this.score++;
-        //    }
-
-        //    this.index++;
-
-        //    if (gameOver())
-        //    {
-        //        this.Close();
-        //        Application.Exit();
-        //    }
-        //    else
-        //    {
-        //        setButtons();
-        //        nextQuestion();
-        //    }
-
-        //}
-
         private async void checkAnswerEvent(object sender, EventArgs e)
         {
             Button clickedButton = (Button)sender;
@@ -66,19 +43,17 @@ namespace MathGame
             }
             else
             {
+                this.wrong_answers.Add(this.questions[index]);
                 clickedButton.BackColor = Color.Red;
             }
-
             // Disable all buttons to prevent multiple clicks
             SetButtonsEnabled(false);
-
-            // Wait for 1.5 seconds
+            // Wait for 1 second
             await Task.Delay(1000);
-
             // Reset button colors and re-enable them
             ResetButtonColors();
             SetButtonsEnabled(true);
-
+            progressBar1.Value = this.index + 1;
             this.index++;
             if (gameOver())
             {
@@ -91,7 +66,6 @@ namespace MathGame
                 nextQuestion();
             }
         }
-
         private void ResetButtonColors()
         {
             button1.BackColor = SystemColors.Control;
@@ -106,13 +80,39 @@ namespace MathGame
             button3.Enabled = enabled;
             button4.Enabled = enabled;
         }
+        //private bool gameOver()
+        //{
+        //    if (this.index == 10)
+        //    {
+        //        int grade = this.score * 10;
+        //        MessageBox.Show($"Your score is {this.score}/{this.totalQuestions}" + Environment.NewLine +
+        //                        $"Your Grade is {grade}!!!","Game Over");
+        //        return true;
+        //    }
+        //    return false;
+        //}
         private bool gameOver()
         {
             if (this.index == 10)
             {
                 int grade = this.score * 10;
-                MessageBox.Show($"Your score is {this.score}/{this.totalQuestions}" + Environment.NewLine +
-                                $"Your Grade is {grade}!!!","Game Over");
+                string message = $"Your score is {this.score}/{this.totalQuestions}\nYour Grade is {grade}!!!\n\n";
+
+                if (wrong_answers.Count > 0)
+                {
+                    message += "Questions you got wrong:\n\n";
+                    for (int i = 0; i < wrong_answers.Count; i++)
+                    {
+                        Question q = wrong_answers[i];
+                        message += $"{i + 1}. {q.toString()}\n   Correct answer: {q.getCorrectAnswer()}\n\n";
+                    }
+                }
+                else
+                {
+                    message += "Congratulations! You got all questions right!";
+                }
+
+                MessageBox.Show(message, "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
             return false;
@@ -122,12 +122,27 @@ namespace MathGame
         {
             Button[] buttons = { button1, button2, button3, button4 };
             int correctIndex = random.Next(0, 4);
-            buttons[correctIndex].Text = $"{this.questions[index].getCorrectAnswer()}";
-            for (int i=0; i<4; i++)
+            int correctAnswer = this.questions[index].getCorrectAnswer();
+
+            HashSet<int> usedNumbers = new HashSet<int> { correctAnswer };
+
+            for (int i = 0; i < 4; i++)
             {
                 if (i == correctIndex)
-                    continue;
-                buttons[i].Text = $"{random.Next(1, 21)}";
+                {
+                    buttons[i].Text = $"{correctAnswer}";
+                }
+                else
+                {
+                    int wrongAnswer;
+                    do
+                    {
+                        wrongAnswer = random.Next(1, 21);
+                    } while (usedNumbers.Contains(wrongAnswer));
+
+                    usedNumbers.Add(wrongAnswer);
+                    buttons[i].Text = $"{wrongAnswer}";
+                }
             }
         }
     }

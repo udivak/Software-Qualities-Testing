@@ -21,7 +21,7 @@ namespace MathGame
             string[] ops = { "+", "-" };
             List<Question> questions = new List<Question>();
             
-            while (questions.Count < totalQuestions)
+            while (questions.Count < totalQuestions)            //Questions generator
             {
                 int num1 = random.Next(1, 11);
                 int num2 = random.Next(1, 11);
@@ -34,11 +34,15 @@ namespace MathGame
                     questions.Add(newQuestion);
                 }
             }
+            Instructions instructions_form = new Instructions(questions.ToArray(), totalQuestions);
+            Application.Run(instructions_form);
 
-            Form1 gameForm = new Form1(questions.ToArray(), totalQuestions);
-            gameForm.nextQuestion();
-            gameForm.setButtons();
-            Application.Run(gameForm);
+
+            //Game gameForm = new Game(questions.ToArray(), totalQuestions);
+            //gameForm.nextQuestion();
+            //gameForm.setButtons();
+            //Application.Run(gameForm);
+
         }
     }
     public class Question
