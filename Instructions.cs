@@ -31,7 +31,6 @@ namespace MathGame
             this.totalQuestions = totalQuestions;
 
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Game gameForm = new Game(questions, totalQuestions);
@@ -40,5 +39,6 @@ namespace MathGame
             gameForm.Show();
             this.Hide();
         }
+
     }
 }

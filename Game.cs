@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MathGame
+namespace MathGame              //add Wallet functionality
 {
     public partial class Game : Form
     {
@@ -38,7 +38,7 @@ namespace MathGame
 
             if (checkAnswer(btnAnswer))
             {
-                this.score++;
+                this.score += 10;
                 clickedButton.BackColor = Color.Green;
             }
             else
@@ -80,24 +80,11 @@ namespace MathGame
             button3.Enabled = enabled;
             button4.Enabled = enabled;
         }
-        //private bool gameOver()
-        //{
-        //    if (this.index == 10)
-        //    {
-        //        int grade = this.score * 10;
-        //        MessageBox.Show($"Your score is {this.score}/{this.totalQuestions}" + Environment.NewLine +
-        //                        $"Your Grade is {grade}!!!","Game Over");
-        //        return true;
-        //    }
-        //    return false;
-        //}
-        private bool gameOver()
+        private bool gameOver()         //CFG
         {
             if (this.index == 10)
             {
-                int grade = this.score * 10;
-                string message = $"Your score is {this.score}/{this.totalQuestions}\nYour Grade is {grade}!!!\n\n";
-
+                string message = $"Your score is {this.score}/{this.totalQuestions}\nYour Grade is {this.score}!!!\n\n";
                 if (wrong_answers.Count > 0)
                 {
                     message += "Questions you got wrong:\n\n";
@@ -111,8 +98,8 @@ namespace MathGame
                 {
                     message += "Congratulations! You got all questions right!";
                 }
-
                 MessageBox.Show(message, "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 return true;
             }
             return false;

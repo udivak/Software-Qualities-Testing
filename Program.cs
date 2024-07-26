@@ -36,13 +36,6 @@ namespace MathGame
             }
             Instructions instructions_form = new Instructions(questions.ToArray(), totalQuestions);
             Application.Run(instructions_form);
-
-
-            //Game gameForm = new Game(questions.ToArray(), totalQuestions);
-            //gameForm.nextQuestion();
-            //gameForm.setButtons();
-            //Application.Run(gameForm);
-
         }
     }
     public class Question
